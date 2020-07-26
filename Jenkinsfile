@@ -60,12 +60,12 @@ pipeline {
     }
   }*/
 
-  post {
+  /*post {
         always {
              emailext attachLog: true, body: """<p>${currentBuild.currentResult}: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'</b></p><p>View console output at "<a href="${env.BUILD_URL}"> ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p><p><i>(Build log is attached.)</i></p>""",compressLog: true,replyTo: 'do-not-reply@gmail.com',subject: "Status: ${currentBuild.result?:'SUCCESS'} - Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'",to: 'anwarkabir2011@gmail.com'
             }
-    }
-    /*post {
+    }*/
+    post {
     success {
         emailext  subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -81,5 +81,5 @@ pipeline {
                 to: "anwarkabir2011@gmail.com"
       cleanWs deleteDirs: true
     }
-  }*/
+  }
 }
