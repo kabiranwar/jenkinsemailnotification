@@ -40,7 +40,7 @@ pipeline {
             doGenerateSubmoduleConfigurations: false,
             userRemoteConfigs: [[
               credentialsId: 'github-account-username-password',
-              url: "https://github.com/kabiranwar/test-sourcecode.gitt"
+              url: "https://github.com/kabiranwar/test-sourcecode.git"
             ]],
             extensions: [
               [$class: 'CleanBeforeCheckout'], 
