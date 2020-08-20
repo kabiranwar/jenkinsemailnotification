@@ -53,7 +53,7 @@ pipeline {
       }
     }
 
-    stage('send email set up') {
+    /*stage('send email set up') {
       steps {
         
         script {
@@ -63,7 +63,7 @@ pipeline {
           jenkinsLocationConfiguration.save()
         }
       }
-    }
+    }*/
     
 
   }
