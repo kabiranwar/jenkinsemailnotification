@@ -1,3 +1,4 @@
+import jenkins.model.*
 pipeline {
 
   agent any
@@ -51,35 +52,28 @@ pipeline {
         }
       }
     }
+
+    stage('send email set up') {
+      steps {
+        
+        script {
+
+          def jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
+          jenkinsLocationConfiguration.setAdminAddress("kanwar <anwarkabir2011@gmail.com>")                   
+          jenkinsLocationConfiguration.save()
+        }
+      }
+    }
     
 
   }
-  /*post {
-    success {
-      cleanWs deleteDirs: true
-    }
-  }*/
+  
 
   post {
         always {
-             emailext attachLog: true, body: """<p>${currentBuild.currentResult}: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'</b></p><p>View console output at "<a href="${env.BUILD_URL}"> ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p><p><i>(Build log is attached.)</i></p>""",compressLog: true,replyTo: 'do-not-reply@gmail.com',subject: "Status: ${currentBuild.result?:'SUCCESS'} - Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'",to: 'anwarkabir2011@gmail.com'
-            }
-    }
-    /*post {
-    success {
-        emailext  subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                to: "anwarkabir2011@gmail.com"
-      cleanWs deleteDirs: true
-    }
+             emailext attachLog: true, body: """<p>${currentBuild.currentResult}: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'</b></p><p> View console output at "<a href="${env.BUILD_URL}"> ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p><p><i>(Build log is attached.)</i></p>""", compressLog: true,replyTo: 'do-not-reply@gmail.com',subject: "$JENKINS_URL: ${currentBuild.result?:'SUCCESS'} - Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", to: 'kabirjenkins2020@gmail.com'
+
+        }
+  }
     
-    failure {
-        emailext  subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                to: "anwarkabir2011@gmail.com"
-      cleanWs deleteDirs: true
-    }
-  }*/
 }
